@@ -1,0 +1,330 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+	{% block css %}
+		<!-- <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favi.png' %}"> -->
+
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/hexagons.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	{% endblock css %}
+
+	{% block title %} <title> General Fitness </title> {% endblock title %}
+
+	{% block content %}
+		{% if home_obj %}
+			{% if home_obj.imageURL == '' %}
+				<section class="container-fluid p-3 p-lg-0 px-lg-0" style="background-image: url('/static/img/backfon.jpg'); background-size: cover; height: 80vh;">
+			{% else %}
+				<section class="container-fluid p-3 p-lg-0 px-lg-0" style="background-image: url('{{ home_obj.imageURL }}'); background-size: cover; height: 80vh;">
+			{% endif %}
+				<div class="container pt-5 pb-5 pl-0 pr-0">
+					<div class="row pt-5 pb-5">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 p-5">
+							<h1 class="pt-5 font-weight-bold text-uppercase">{{ home_obj.caption|safe|default_if_none:'SPORTDAN YAXSHIROQ XOBBI YUQ!' }}</h1>
+							<!-- <h1 class="pt-5 font-weight-bold text-uppercase">sportdan yaxshiroq <br> xobbi yo’q!</h1> -->
+							<h5 class="pt-3 pb-3 text-justify">O’zingiz uchun foydali xobbiga ega bo’ling</h5>
+							<button class="btn textWhite bgRed pl-5 pr-5">Узнать больше</button>
+						</div>
+					</div>
+				</div>
+			</section> 
+		{% else %}
+			<section class="container-fluid p-3 p-lg-0 px-lg-0" style="background-image: url('/static/img/backfon.jpg'); background-size: cover; height: 80vh;">
+				<div class="container pt-5 pb-5 pl-0 pr-0">
+					<div class="row pt-5 pb-5">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 p-5">
+							<h1 class="pt-5 font-weight-bold text-uppercase">SPORTDAN YAXSHIROQ XOBBI YUQ!</h1>
+							<!-- <h1 class="pt-5 font-weight-bold text-uppercase">sportdan yaxshiroq <br> xobbi yo’q!</h1> -->
+							<h5 class="pt-3 pb-3 text-justify">O’zingiz uchun foydali xobbiga ega bo’ling</h5>
+							<button class="btn textWhite bgRed pl-5 pr-5">Узнать больше</button>
+						</div>
+					</div>
+				</div>
+			</section> 
+		{% endif %}
+		<section class="container-fluid p-3 bg-light">
+			<div class="container pl-0 pr-0">
+				<div class="row pt-5">      
+					<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-2">
+						<a href="#">
+							<div class="card border-0 text-center bg-transparent">
+								<img src="{% static 'img/newIcons/icon1.png' %}" width="80" class="m-auto p-3" alt="header-icon1" style="background-color: red; border-radius:10px;">
+								<h6 class="font-weight-bold textBlack text-uppercase pt-3">безопасность</h6>
+							</div>
+						</a>
+					</div>
+					<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-2">
+						<a href="#">
+							<div class="card border-0 text-center bg-transparent">
+								<img src="{% static 'img/newIcons/icon2.png' %}" width="80" class="m-auto p-3" alt="header-icon2" style="background-color: red; border-radius:10px;">
+								<h6 class="font-weight-bold textBlack text-uppercase pt-3">ДОСТАВКА ПО УЗБЕКИТСАНУ</h6>
+							</div>
+						</a>
+					</div>
+					<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-2">
+						<a href="#">
+							<div class="card border-0 text-center bg-transparent">
+								<img src="{% static 'img/newIcons/icon3.png' %}" width="80" class="m-auto p-3" alt="header-icon3" style="background-color: red; border-radius:10px;">
+								<h6 class="font-weight-bold textBlack text-uppercase pt-3">УСТАНОВКА</h6>
+							</div>
+						</a>
+					</div>
+					<div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-2">
+						<a href="#">
+							<div class="card border-0 text-center bg-transparent">
+								<img src="{% static 'img/newIcons/icon4.png' %}" width="80" class="m-auto p-3" alt="header-icon4" style="background-color: red; border-radius:10px;">
+								<h6 class="font-weight-bold textBlack text-uppercase pt-3">техническое обслуживание</h6>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section> 
+
+		<section class="container-fluid pl-0 pr-0 pt-5 pb-4 text-center">
+			<div class="container pl-0 pr-0">
+				<nav class="navbar navbar-expand-xl navbar-dark container pl-3 pr-3">
+					<a class="navbar-brand" href="{% url 'core:home' %}"></a>
+					<div class="navbar-collapse text-center" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							{% for object in category_list %}
+								<li class="nav-item pt-3"><a class="nav-link pl-3 pr-3 text-dark" href="{% url 'core:category' object.slug %}">{{ object.name }}</a></li>
+							{% endfor %}
+						</ul>  
+					</div>
+				</nav>
+			</div>
+		</section> 
+
+		<section class="container-fluid borderB pt-5 borderT text-center" style="background-image: url('/static/img/bg/fhjj.svg'); background-size: cover;">
+			<div class="container pl-0 pr-0">
+				<div class="row m-auto">
+					<div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-7" >
+						<img src="{% static 'img/Products/pr1.png' %}"  width="100%" alt="" >
+					</div>
+					<div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-5 m-auto text-right">
+						<h1 class="pt100">Беговые дорожки</h1>
+						<h1 class="font-weight-bold">GF - 4050M.</h1>
+						<h4 class="font-weight-bold pt-3">Xarakteristika</h4>
+						<h5>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum praesentium laboriosam esse ipsam nostrum, dolor rem, neque labore nulla pariatur explicabo repellendus sequi fugit ut at magnam quaerat inventore minus.</h5>
+					</div>
+					<div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-5 m-auto text-left">
+						<h1 class="pt120 text-uppercase">велосипед</h1>
+						<h1 class="font-weight-bold">GF - 4455.</h1>
+						<h4 class="font-weight-bold pt-3">Xarakteristika</h4>
+						<h5>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum praesentium laboriosam esse ipsam nostrum, dolor rem, neque labore nulla pariatur explicabo repellendus sequi fugit ut at magnam quaerat inventore minus.</h5>
+					</div>
+					<div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-7 pt-5" >
+						<img src="{% static 'img/Products/pr2.png' %}" width="100%" alt="">
+					</div>
+					<div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-7 p-5" >
+						<img src="{% static 'img/Products/pr3.png' %}" width="100%"  alt="">
+					</div>
+					<div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-5 m-auto text-right">
+						<h1 class="pt120 text-uppercase">удочка</h1>
+						<h1 class="font-weight-bold">GF - U5963.</h1>
+						<h4 class="font-weight-bold pt-3">Xarakteristika</h4>
+						<h5 class="pb-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum praesentium laboriosam esse ipsam nostrum, dolor rem, neque labore nulla pariatur explicabo repellendus sequi fugit ut at magnam quaerat inventore minus.</h5>
+					</div>
+				</div>
+			</div>
+		</section> 
+
+		<section class="container p-3" id="brands">
+			<div class="row p-3">
+				<div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 ">
+					<img src="{% static 'img/clients/adidas.png' %}" width="100%" alt="">
+				</div>
+				<div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 pt-4">
+					<img src="{% static 'img/logo.svg' %}" width="100%" alt="">
+				</div>
+				<div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 pt-3">
+					<img src="{% static 'img/clients/nike.png' %}" width="100%" alt="">
+				</div>
+				<div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 pt-3">
+					<img src="{% static 'img/clients/oasics.png' %}" width="100%" alt="">
+				</div>
+				<div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 ">
+					<img src="{% static 'img/clients/puma.png' %}" width="100%" alt="">
+				</div>
+				<div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 ">
+					<img src="{% static 'img/clients/under.png' %}" width="100%" alt="">
+				</div>
+			</div>  
+		</section> 
+
+		<section class="container-fluid p-3">
+			<div class="container pl-0 pr-0">
+				<h1 class="font-weight-bold p-3">Популярные товары</h1>
+				<div class="row p-3">
+					{% for obj in recommended_product %}
+						<div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 p-2">
+							<a href="{% url 'core:product-detail' obj.slug %}">
+								<div class="card bg-transparent p-3">
+									{% if obj.product_image.all %}
+										{% for img in obj.product_image.all %}
+											{% if forloop.counter == 1 %}
+												<img src="{{ img.imageURL }}" width="100%" alt="">
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+									<h6 class="pt-3 textBlack">{{ obj.name }}</h6>
+									<h6 class="font-weight-bold textBlack">{{ obj.product_model }}</h6>
+								</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section> 
+
+		<section class="container-fluid pl-3 pr-3 pb-5 p-lg-0 borderB borderT " id="about_section">
+			<div class="container pl-0 pr-0">
+				<div class="row">
+					{% if about_obj %}
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pt-5 pb-5">
+							{% if about_obj.imageURL == '' %}
+								<img src="{% static 'img/back.jpg' %}" width="100%" height="" style="height: 48vh;" alt="">
+							{% else %}
+								<img src="{{ about_obj.imageURL }}" width="100%" height="" style="height: 48vh;" alt="">
+							{% endif %}
+						</div>
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-4">
+							<h1 class="font-weight-bold pt-4">О компании</h1>
+							<h5 class="text-justify">
+								{{ about_obj.about_text|safe|default_if_none:'General Fitness' }}
+							</h5>
+						</div>
+					{% else %}
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pt-5 pb-5">
+							<img src="{% static 'img/back.jpg' %}" width="100%" height="" style="height: 48vh;" alt="">
+						</div>
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-4">
+							<h1 class="font-weight-bold pt-4">О компании</h1>
+							<!-- default malumot kiritilishi kerak -->
+							<h5 class="text-justify">
+								General Fitness
+							</h5>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</section>
+
+		<section class="container-fluid borderB borderT">
+				<div class="container pl-0 pr-0">
+					<div class="row">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-5">
+							<h5>Мобильное приложение</h5>
+							<h2 class="font-weight-bold pt-3 pb-3">Ждем Вас в мобильном приложении!</h2>
+							<h6 class="pl-3">• Сохраняйте то, что нравится</h6>
+							<h6 class="pb-5 pl-3">• Доступ к Клубной карте в одно касание</h6>
+							<div class="form-inline justify-content-center">
+							</div>
+						</div>
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+							<img src="{% static 'img/phone.png' %}" width="100%" height="" style="height: 50vh;" alt="">
+						</div>
+					</div>
+				</div>
+		</section> 
+
+		<section class="container p-3">
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 p-0" style="overflow: hidden;">
+					<div class="card p-5" style="background-image: url('/static/img/bg/f5.png'); height: 437px;">
+						<h4 class="font-weight-bold">Все акции <br> General Fitness <br> в одном месте!</h4>
+					<h5 style="bottom: 10px; position: absolute;">Смотреть <i class="fa fa-angle-right ml-2"></i></h5>
+					</div>
+				</div>
+				<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 p-0" style="overflow: hidden;">
+					<div class="card p-5" style="background-image: url('/static/img/bg/b2.png');">
+						<div class="row">
+							<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+								<h5 class="font-weight-bold">«Велосипедная поездка по миру <br> начинается с одного нажатия педали»</h5>
+							</div>
+							<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+								<img src="{% static 'img/bg/f6.png' %}" width="100%" height="340" alt="">
+							</div>
+						</div>
+						<h5 style="bottom: 10px; position: absolute;">Смотреть <i class="fa fa-angle-right ml-2"></i></h5>
+					</div>
+				</div>
+				<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 p-0" style="overflow: hidden;">
+					<div class="card p-5" style="background-image: url('/static/img/bg/b2.png');">
+						<div class="row">
+							<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+								<img src="{% static 'img/bg/f7.png' %}" width="100%" height="340" alt="">
+							</div>
+							<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+								<h5 class="font-weight-bold">Молодежь–фундамент будущего страны</h5>
+							</div>
+						</div>
+						<h5 style="bottom: 10px; position: absolute;">Смотреть <i class="fa fa-angle-right ml-2"></i></h5>
+					</div>
+				</div>
+				<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 p-0" style="overflow: hidden;">
+					<div class="card p-5" style="background-image: url('/static/img/bg/f5.png'); height: 438px;">
+						<h4 class="font-weight-bold">Отвечаем на часто <br> задаваемые вопросы</h4>
+						<h5 style="bottom: 10px; position: absolute;">Смотреть <i class="fa fa-angle-right ml-2"></i></h5>
+					</div>
+				</div>
+			</div>
+		</section> 
+
+		<section class="container-fluid p-3 p-lg-0 borderB borderT">
+			<div class="container pt-5 pb-5 pl-0 pr-0">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-center">
+						<img src="{% static 'img/block_1_woman.png' %}" width="60%"  alt="">
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+						<h1>Оставьте заявку и мы свяжемся с вами !</h1>
+						<form action="" method="POST" class="form-group">
+							{% csrf_token %}
+							{{ form.non_field_errors }}
+
+							{{ form.name.errors }}
+							{{ form.name }}
+
+							{{ form.phone_number.errors }}
+							{{ form.phone_number }}
+
+							{{ form.message.errors }}
+							{{ form.message }}
+							<!-- <input type="text" class="form-control mt-2" placeholder="Введите ваше имя ...">
+							<input type="number" min="1" class="form-control mt-2 mb-2" placeholder="Введите свой телефон ...">
+							<textarea name="" id="" class="p-3" style="width: 100%;" placeholder="Сообщение..." rows="7"></textarea> -->
+							<h5 class="text-right">
+								<button class="btn pl-5 pr-5 textBlack" style="border: 2px solid #ddd;">Send</button>
+							</h5>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section> 
+
+
+		<section class="container p-2 pl-lg-0 pr-lg-0 pt-lg-5 pb-lg-5" id="contact_section">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.982598860317!2d69.21832071542273!3d41.28748317927348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b2fe7511b29%3A0x598acf5a088b2f66!2sNG%20Energo!5e0!3m2!1sru!2s!4v1611666032701!5m2!1sru!2s" width="600"frameborder="0" style="border:0; width: 100%; height: 47vh; " allowfullscreen="" aria-hidden="false"  tabindex="0"></iframe> 
+		</section> 
+	
+	{% endblock content %}
+
+	{% block js %}
+		<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/slick.js' %}"></script>
+		<script defer src="{% static 'js/fontaweasome.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+		<script>
+
+		</script>
+	{% endblock js %}
+

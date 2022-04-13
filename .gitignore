@@ -1,0 +1,4 @@
+trinajor/
+media_root/
+*.sqlite3
+__pycache__/

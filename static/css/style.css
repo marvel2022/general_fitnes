@@ -1,0 +1,152 @@
+  @font-face {
+      font-family: "Montserrat-Regular";
+      src: url("../Montserrat/Montserrat-Regular.ttf");
+    }
+  
+*, *::before, *::after {
+  font-family: "Montserrat-Regular";
+  font-weight: 900;
+  font-size: 16px;
+}
+
+body {
+  font-family:"Montserrat-Regular";
+  font-size: 16px;
+}
+
+/*  Default  */
+a, a:hover{
+  text-decoration: none;
+}
+.bgRed{
+  background-color: #ff0000;
+}
+.bgBlack{
+  background-color: #000000;
+}
+.textRed{
+  color: #ff0000;
+}
+.textBlack{
+  color: #000000;
+}
+.textWhite{
+  color: #ffffff;
+}
+.textGrey{
+  color: grey;
+}
+.textYellow{
+  color: #e7e75e;
+}
+.borderB{
+  border-bottom: 2px solid #ff0000;
+}
+.borderT{
+  border-top: 2px solid #ff0000;
+}
+
+.border1pxRed{
+  border: 1px solid #ff0000;
+}
+.border2pxRed{
+  border: 2px solid #ff0000;
+}
+.pt100{
+  padding-top: 100px;
+}
+.pt120{
+  padding-top: 120px;
+}
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+.navbar-fixed{
+  background-color: #ffffff;
+  border-bottom: 3px solid #ff0000;
+}
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------
+#index
+--------------------------------------------------------------------  */
+.zoomImg{
+  transition: 1205ms linear;
+}
+.zoomImg:hover{
+  transform: scale(1.1, 1.1);
+}
+
+/*Scrol top*/
+.btn-top{
+  width: 50px;
+  height: 50px;
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 99;
+  background-color: #ffffff;
+  border: 2px solid #000;
+  color: #eeeeee;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.btn-top:hover{
+  background-color: #ff0000;
+  color: white;
+}
+
+
+
+
+
+
+
+
+/* ------------------------------------------------------------------
+  MEDIA
+-------------------------------------------------------------------- */
+.footer-logo{
+  width: 250px;
+}
+.header-logo{
+  width: 220px;
+}
+
+@media (max-width:556px){
+  .header-logo{
+    width: 150px;
+  }
+  .footer-logo{
+    width: 120px;
+  }  
+}
+
+
+@media (max-width:776px){
+  .footer-logo{
+    width: 100px;
+  }  
+}
+
+
+@media (max-width:992px){
+  .footer-logo{
+    width: 320px;
+  }  
+}
+
+
+@media (max-width:1200px){
+  .footer-logo{
+    width: 350px;
+  }  
+}

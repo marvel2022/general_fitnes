@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}	
+	
+	{% block css %}
+		<!-- <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favi.png' %}"> -->
+
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/hexagons.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	{% endblock css %}
+
+	{% block title %} <title> General Fitness </title> {% endblock title %}
+
+	{% block content %}
+
+		<section class="container-fluid pl-0 pr-0 pt120 pb-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" style="border: 1px solid #aaa;">
+						<h3 class="font-weight-bold pt-4">Котегория</h3>
+						<ul class="list-unstyled pt-3">
+							{% for category in category_list %}
+								<li class="pl-2 pb-2 h5 font-weight-bold"><a href="{% url 'core:category' category.slug %}">{{ category.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% if category %}
+						<div class="col-12 col-sm-12 col-md-6 col-lg-9 col-xl-9 p-5" style="{% if category.imageURL == '' %}background-image: url('/static/img/backfon2.jpg'); {% else %} background-image: url('{{ category.imageURL }}'); {% endif %} background-size: cover;">
+							<h1 class="textWhite">{{ category.caption|safe|default_if_none:"«Фитнес - это игра ошибок. Побеждает тот, кто делает меньше ошибок»" }} </h1>
+						</div>
+					{% else %}
+						<div class="col-12 col-sm-12 col-md-6 col-lg-9 col-xl-9 p-5" style="background-image: url(/static/img/backfon2.jpg); background-size: cover;">
+							<h1 class="textWhite">«Фитнес - это игра ошибок. Побеждает тот, кто делает меньше ошибок» </h1>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</section>
+
+		<section class="container-fluid pl-0 pr-0 pt-5 pb-5">
+			<div class="container">
+				<h1 class="font-weight-bold pb-3">Популярные товары</h1>
+				<div class="row">
+
+					{% for object in object_list %}
+						<div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 p-2">
+							<a href="{% url 'core:product-detail' object.slug %}">
+								<div class="card bg-transparent text-center">
+									{% if object.product_image.all %}
+										{% for img in object.product_image.all %}
+											{% if forloop.counter == 1 %}
+												<img src="{{ img.imageURL }}" width="60%" class="m-auto" alt="">
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+									<div class="card-body">
+										<h6 class="textGrey">{{ object.name }}</h6>
+										<h6 class="textBlack">{{ object.product_model }}</h6>
+									</div>
+								</div>
+							</a>
+						</div>
+					{% empty %}
+						<h1>There is no Products</h1>
+					{% endfor %}
+					
+				</div>
+				
+				<!-- Paginator -->
+				{% include 'includes/paginator.html' %}
+				<!-- End Paginator -->
+
+			</div>
+		</section>
+	{% endblock content %}
+
+	{% block js %}   
+		<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/slick.js' %}"></script>
+		<script defer src="{% static 'js/fontaweasome.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+		<script>
+
+		</script>
+	{% endblock js %}

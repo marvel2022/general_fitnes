@@ -1,0 +1,36 @@
+{% load static %}
+
+<header class="container-fluid pl-0 pr-0 bg-white fixed-top">
+	<nav class="navbar navbar-expand-xl navbar-dark container pl-3 pr-3">
+		<a class="navbar-brand" href="/">
+			<img src="{% static 'img/logo.svg' %}" width="220" alt="">
+		</a>
+		<button class="navbar-toggler border bgBlack" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+			<ul class="navbar-nav m-auto">
+				<li class="nav-item pt-3">
+					<a class="nav-link pl-3 pr-3" href="/">
+						<div class="h5 text-dark font-weight-bold">Главная</div>
+					</a>
+				</li>
+				<li class="nav-item pt-3">
+					<a class="nav-link pl-3 pr-3" href="{% url 'core:home' %}#about_section">
+						<div class="h5 text-dark font-weight-bold">О компании</div>
+					</a>
+				<li class="nav-item pt-3">
+					<a class="nav-link pl-3 pr-3" href="{% url 'core:category' %}">
+						<div class="h5 text-dark font-weight-bold">Каталог</div>
+					</a>
+				</li>
+			</ul>
+			<form action="" class="form-inline pb-3 pt-3">
+				<div class="text-center m-auto">
+					<a href="tel:+998712099090" class="h5 font-weight-bold text-dark"> +998 71 209 90 90</a><br>
+					<a href="tel:+998712099090" class="h5 font-weight-bold text-dark"> +998 71 209 90 90</a>
+				</div>
+			</form>
+		</div>
+	</nav>
+</header>

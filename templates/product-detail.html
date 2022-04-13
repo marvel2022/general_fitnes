@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+	{% block css %}
+		<!-- <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favi.png' %}"> -->
+
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/hexagons.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<style type="text/css">
+
+			#myCarousel .list-inline {
+					white-space:nowrap;
+					overflow-x:auto;
+			}
+			
+			#myCarousel .carousel-indicators {
+					position: static;
+					left: initial;
+					width: initial;
+					margin-left: initial;
+					opacity:0.8;
+			}
+			
+			#myCarousel .carousel-indicators > li {
+					width: initial;
+					height: initial;
+					text-indent: initial;
+			}
+			
+			#myCarousel .carousel-indicators > li.active img {
+					opacity: 1;
+			}
+			
+		</style>
+	{% endblock css %}
+
+	{% block title %} <title> General Fitness </title> {% endblock title %}
+
+	{% block content %}
+
+		<section class="container pt100">
+			<div class="row pb-5">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pl-0 pr-0">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb bgBlack">
+							<li class="breadcrumb-item"><a class="textWhite" href="/">Главная</a></li>
+							<li class="breadcrumb-item"><a class="textWhite" href="{% url 'core:category' %}">Каталог</a></li>
+							<li class="breadcrumb-item"><a class="textWhite" href="{% url 'core:category' object.category.slug %}">{{ object.category }}</a></li>
+							<li class="breadcrumb-item active" aria-current="page"><span class="text-white">{{ object.product_model }}</span></li>
+						</ol>
+					</nav>
+				</div>
+
+	 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+					<div class="row">
+						<div class="col-lg-12" id="slider">
+							<div id="myCarousel" class="carousel slide shadow">
+								{% if object.product_image.all %}
+									<div class="carousel-inner">
+										
+										{% for img in object.product_image.all %}
+											{% if forloop.counter0 == 0 %}
+												<div class="active carousel-item" data-slide-number="{{ forloop.counter0 }}">
+													<img src="{{ img.imageURL }}" class="img-fluid" width="100%" style="height: 35vh;">
+												</div>
+											{% else %}
+												<div class="carousel-item" data-slide-number="{{ forloop.counter0 }}">
+													<img src="{{ img.imageURL }}" class="img-fluid" width="100%" style="height: 35vh;">
+												</div>
+											{% endif %}
+										{% endfor %}
+									
+									</div>
+									<ul class="carousel-indicators list-inline mx-auto border">
+
+										{% for img in object.product_image.all  %}
+											{% if forloop.counter0 == 0 %}
+												<li class="list-inline-item border p-0 m-0 active">
+													<a id="carousel-selector-{{ forloop.counter0 }}" class="selected" data-slide-to="{{ forloop.counter0 }}" data-target="#myCarousel">
+														<img src="{{ img.imageURL }}" class="img-fluid" style="width: 180px; height: 15vh;">
+													</a>
+												</li>
+											{% else %}
+												<li class="list-inline-item border p-0 m-0">
+													<a id="carousel-selector-{{ forloop.counter0 }}" class="selected" data-slide-to="{{ forloop.counter0 }}" data-target="#myCarousel">
+														<img src="{{ img.imageURL }}" class="img-fluid" style="width: 180px; height: 15vh;">
+													</a>
+												</li>
+											{% endif %}
+										{% endfor %}
+
+									</ul>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+					<p class="text-justify">
+						<h3>{{ object.product_model|default_if_none:'' }}</h3>
+						<!-- <h6><i class="fa fa-star textYellow"></i><i class="fa fa-star textYellow"></i><i class="fa fa-star textYellow"></i><i class="fa fa-star textYellow"></i><i class="fa fa-star textYellow"></i></h6> -->
+						<h5 class="textBlack font-weight-bold">Коротко о товаре</h5>
+						<h5>{{ object.guarentee|default_if_none:'Гарантийный срок: ❌' }}</h5>
+						<h5>Модель: {{ object.product_model|default_if_none:'' }}</h5>
+						{% if object.delivery_uzb %}
+							<h6 class="textGrey pt-4">
+								<i class="fa fa-check" style="color:#00ff00;"></i> 
+								Доставка по Узбеистану
+							</h6>
+						{% elif object.delivery_toshkent %}
+							<h6 class="textGrey pt-4">
+								<i class="fa fa-check" style="color:#00ff00;"></i> 
+								Доставка по Ташкент
+							</h6>
+						{% else %}
+							<h6 class="textGrey pt-4">
+								❌ 
+								Без Доставки
+							</h6>
+						{% endif %}
+					</p>
+				</div>
+
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-3 pr-3">
+					<div class="row">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-4 pr-4 pl-lg-0 pr-lg-0 pt-5">
+							<h3>Характеристики</h3>
+						</div>
+						<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-4 pr-4 pl-lg-0 pr-lg-0">
+
+							{{ object.description|safe }}
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="container-fluid p-3 p-lg-0 borderT">
+			<div class="container pl-0 pr-0">
+				<h3 class="font-weight-bold textBlack p-3">Рекомендуемые товары</h3>
+				<div class="row pt-2">
+
+					{% for obj in recommended_product %}
+						<div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 p-2">
+							<a href="{% url 'core:product-detail' obj.slug %}">
+								<div class="card bg-transparent text-center">
+									{% if obj.product_image.all %}
+											{% for img in obj.product_image.all %}
+												{% if forloop.counter == 1 %}
+													<img src="{{ img.imageURL }}" width="60%" height="150" class="m-auto" alt="">
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+									<div class="card-body">
+										<h6 class="textGrey">{{ obj.name }}</h6>
+										<h6 class="textBlack">{{ obj.product_model }}</h6>
+									</div>
+								</div>
+							</a>
+						</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</section> 
+
+	{% endblock content %}
+
+	{% block js %}
+		<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/slick.js' %}"></script>
+		<script defer src="{% static 'js/fontaweasome.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+		<script>
+
+		</script>
+	{% endblock js %}
